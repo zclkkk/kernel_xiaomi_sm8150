@@ -2,7 +2,7 @@
 config ZRAM
 	tristate "Compressed RAM block device support"
 	depends on BLOCK && SYSFS && ZSMALLOC && CRYPTO
-	depends on CRYPTO_LZO || CRYPTO_LZ4 || CRYPTO_DEFLATE || CRYPTO_LZ4HC || CRYPTO_842 || CRYPTO_ZSTD
+	depends on CRYPTO_LZO || CRYPTO_LZ4 || CRYPTO_LZ4HC || CRYPTO_ZSTD
 	default n
 	help
 	  Creates virtual block devices called /dev/zramX (X = 0, 1, ...).
@@ -28,17 +28,9 @@ config ZRAM_DEF_COMP_LZ4
 	bool "lz4"
 	depends on CRYPTO_LZ4
 
-config ZRAM_DEF_COMP_DEFLATE
-	bool "deflate"
-	depends on CRYPTO_DEFLATE
-
 config ZRAM_DEF_COMP_LZ4HC
 	bool "lz4hc"
 	depends on CRYPTO_LZ4HC
-
-config ZRAM_DEF_COMP_842
-	bool "842"
-	depends on CRYPTO_842
 
 config ZRAM_DEF_COMP_ZSTD
 	bool "zstd"
@@ -50,9 +42,7 @@ config ZRAM_DEF_COMP
 	string
 	default "lzo" if ZRAM_DEF_COMP_LZO
 	default "lz4" if ZRAM_DEF_COMP_LZ4
-	default "deflate" if ZRAM_DEF_COMP_DEFLATE
 	default "lz4hc" if ZRAM_DEF_COMP_LZ4HC
-	default "842" if ZRAM_DEF_COMP_842
 	default "zstd" if ZRAM_DEF_COMP_ZSTD
 
 config ZRAM_WRITEBACK
